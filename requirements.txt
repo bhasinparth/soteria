@@ -1,0 +1,4 @@
+face_recognition==1.2.2
+opencv-python==4.1.2.30
+requests==2.22.0
+python-firebase==1.2
