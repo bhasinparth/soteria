@@ -1,4 +1,4 @@
-# soteria
+# Soteria
 Studies from past years show that the number of harassment and misconduct cases reported are increasing on an yearly basis. In recent times, around USC, DPS has recorded crimes alerting to sexual batteries, misconduct in the public places and so on.
 
 # What it does
