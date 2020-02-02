@@ -1,5 +1,6 @@
 import time
 import edgeiq
+import face_recognition
 """
 Use object detection to detect objects in the frame in realtime. The
 types of objects detected can be changed by selecting different models.
@@ -35,9 +36,10 @@ def main():
             while True:
                 frame = video_stream.read()
                 results = obj_detect.detect_objects(frame, confidence_level=.5)
+                print("Results:",results)
                 frame = edgeiq.markup_image(
                         frame, results.predictions, colors=obj_detect.colors)
-
+                print("Frames", frame)
                 # Generate text to display on streamer
                 text = ["Model: {}".format(obj_detect.model_id)]
                 text.append(
@@ -47,7 +49,13 @@ def main():
                 for prediction in results.predictions:
                     text.append("{}: {:2.2f}%".format(
                         prediction.label, prediction.confidence * 100))
-
+				
+                known_image = face_recognition.load_image_file("./0.jpg")
+                unknown_image = face_recognition.load_image_file("./0.jpg")
+                biden_encoding = face_recognition.face_encodings(known_image)[0]
+                unknown_encoding = face_recognition.face_encodings(unknown_image)[0]
+                results_new = face_recognition.compare_faces([biden_encoding], unknown_encoding)
+                print("Face recog", results_new)
                 streamer.send_data(frame, text)
 
                 fps.update()
